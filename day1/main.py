@@ -13,8 +13,6 @@ def p1():
         sum += abs(left[i] - right[i])
     return sum
 
-
-
 def p2():
     left, counts = [], {}
     with open("data.txt") as f:
