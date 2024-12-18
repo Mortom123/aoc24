@@ -38,7 +38,7 @@ def p1():
     def heuristic(t: Node) -> int:
         return (max_x - t[0]) + (max_y - t[1])
 
-    return astar(start, is_goal, neighbors, heuristic).cost
+    return astar(start, is_goal, neighbors, heuristic)[0].cost
 
 def p2():
     with open(file) as f:
@@ -70,8 +70,7 @@ def p2():
             n.append((i, 1))
         return n
 
-    current_path = set(get_path(astar(start, is_goal, neighbors, heuristic)))
-
+    current_path = set(get_path(astar(start, is_goal, neighbors, heuristic)[0]))
     while True:
         current_block = bytes[current_index]
         current_index += 1
@@ -81,10 +80,10 @@ def p2():
 
         bytes_lookup = set(bytes[:current_index])
         result = astar(start, is_goal, neighbors, heuristic)
-        if astar(start, is_goal, neighbors, heuristic) is None:
+        if not len(result):
             print(current_index - 1)
-            return ",".join(list(map(str,current_block)))
-        current_path = set(get_path(result))
+            return ",".join(list(map(str, current_block)))
+        current_path = set(get_path(astar(start, is_goal, neighbors, heuristic)[0]))
 
 if __name__ == "__main__":
     print(p1())

@@ -1,6 +1,6 @@
 import numpy as np
 from utils.direction import Direction
-from utils.astar import astar, astar_multipath
+from utils.astar import astar
 from utils.point import Point
 from typing import List, Tuple
 from dataclasses import dataclass
@@ -53,7 +53,7 @@ def p1():
     def heuristic(p: PointWithDirection) -> float:
         return abs(g[0] - p.point.y) + abs(g[1] - p.point.x)
 
-    goal_node = astar(start, is_goal, get_neighbors, heuristic)
+    goal_node = astar(start, is_goal, get_neighbors, heuristic)[0]
 
     return goal_node.cost
 
@@ -98,9 +98,9 @@ def p2():
     def heuristic(p: PointWithDirection) -> float:
         return abs(g[0] - p.point.y) + abs(g[1] - p.point.x)
 
-    goal_node = astar_multipath(start, is_goal, get_neighbors, heuristic)
+    goal_nodes = astar(start, is_goal, get_neighbors, heuristic)
 
-    nodes = goal_node
+    nodes = goal_nodes
     node_indices = set()
     while nodes:
         current = nodes.pop()
