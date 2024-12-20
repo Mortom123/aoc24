@@ -1,6 +1,6 @@
 import numpy as np
 
-from utils.astar import astar, get_path
+from utils.pathfinding import astar, get_path
 from utils.point import get_neighbors
 from typing import Tuple, List
 

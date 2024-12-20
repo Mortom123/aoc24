@@ -1,6 +1,6 @@
 import numpy as np
 from utils.direction import Direction
-from utils.astar import astar
+from utils.pathfinding import astar
 from utils.point import Point
 from typing import List, Tuple
 from dataclasses import dataclass

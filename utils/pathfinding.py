@@ -9,7 +9,7 @@ class SearchNode(Generic[T]):
     value: T
     cost: float
     heuristic: float = 0
-    parents: List[Self] = field(default_factory=list)
+    parents: List[Self] = field(default_factory=list, repr=False)
 
     def priority(self):
         return self.cost + self.heuristic
@@ -65,10 +65,15 @@ def astar(
     return goal_paths
 
 def get_path(node: SearchNode[T]) -> List[T]:
-    if not len(node.parents):
-        return [node.value]
-    parent = node.parents[0]
-    return get_path(parent) + [node.value]
+    path = []
+    open = [node]
+    while open:
+        current = open.pop()
+        path.append(current.value)
+        if current.parents:
+            parent = current.parents[0]
+            open.append(parent)
+    return path
 
 def get_paths(node: SearchNode[T]) -> List[List[T]]:
     if not len(node.parents):
